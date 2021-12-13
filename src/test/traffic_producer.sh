@@ -10,7 +10,7 @@ do
         curl -s "firstName=George&lastName=Constansa&address=home&city=NY&telephone=1234567" \
                     -H "Content-Type: application/x-www-form-urlencoded" \
                     -X POST $BASE_URL/owners/1/edit > /dev/null
-        curl -s $BASE_URL/owners/2?factorial=20000 > /dev/null
+        curl -s "${BASE_URL}/owners/2?factorial=20000" > /dev/null
         curl -s $BASE_URL/owners/3 > /dev/null
         curl -s $BASE_URL/owners/4 > /dev/null
         curl -s $BASE_URL/owners/5 > /dev/null
