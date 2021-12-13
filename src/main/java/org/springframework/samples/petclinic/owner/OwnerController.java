@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -157,7 +158,11 @@ class OwnerController {
 	 * @return a ModelMap with the model attributes for the view
 	 */
 	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId,
+			@RequestParam(required = false, name = "factorial") String factorial) {
+		if (factorial != null) {
+			factorial(Integer.parseInt(factorial));
+		}
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		Owner owner = this.owners.findById(ownerId);
 		for (Pet pet : owner.getPets()) {
@@ -165,6 +170,13 @@ class OwnerController {
 		}
 		mav.addObject(owner);
 		return mav;
+	}
+
+	private void factorial(int n) {
+		BigInteger factorial = BigInteger.ONE;
+		for (int i = 2; i < n; i++) {
+			factorial = factorial.multiply(BigInteger.valueOf(i));
+		}
 	}
 
 }
