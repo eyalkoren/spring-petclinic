@@ -42,14 +42,26 @@ class VetController {
 	}
 
 	@GetMapping("/vets.html")
-	public String showVetList(@RequestParam(defaultValue = "1") int page, Model model) {
+	public String showVetList(@RequestParam(defaultValue = "1") int page, Model model,
+							  @RequestParam(required = false, name = "sleep") String sleep) {
 		// Here we are returning an object of type 'Vets' rather than a collection of Vet
 		// objects so it is simpler for Object-Xml mapping
 		Vets vets = new Vets();
 		Page<Vet> paginated = findPaginated(page);
 		vets.getVetList().addAll(paginated.toList());
+		if (sleep != null) {
+			sleep(Long.parseLong(sleep));
+		}
 		return addPaginationModel(page, paginated, model);
 
+	}
+
+	private void sleep(long sleepMs) {
+		try {
+			Thread.sleep(sleepMs);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private String addPaginationModel(int page, Page<Vet> paginated, Model model) {

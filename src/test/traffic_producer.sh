@@ -17,5 +17,6 @@ do
         curl -s $BASE_URL/owners/6 > /dev/null
         curl -s $BASE_URL/oups > /dev/null
         curl -s $BASE_URL/vets.html > /dev/null
+        curl -s "${BASE_URL}/vets.html?sleep=200" > /dev/null
         sleep 0.1
 done
