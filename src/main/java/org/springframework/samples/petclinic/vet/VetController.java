@@ -43,7 +43,7 @@ class VetController {
 
 	@GetMapping("/vets.html")
 	public String showVetList(@RequestParam(defaultValue = "1") int page, Model model,
-							  @RequestParam(required = false, name = "sleep") String sleep) {
+			@RequestParam(required = false, name = "sleep") String sleep) {
 		// Here we are returning an object of type 'Vets' rather than a collection of Vet
 		// objects so it is simpler for Object-Xml mapping
 		Vets vets = new Vets();
@@ -59,7 +59,8 @@ class VetController {
 	private void sleep(long sleepMs) {
 		try {
 			Thread.sleep(sleepMs);
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

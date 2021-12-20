@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
-if [[ -z "${AGENT_VERSION}" ]];
-then
-  echo "AGENT_VERSION environment variable must be set"
-  exit 1
+AGENT_JAR=agent/elastic-apm-agent.jar
+if [[ -f "${AGENT_JAR}" ]]; then
+  echo "${AGENT_JAR} exists, using it."
 else
-  echo "AGENT_VERSION: ${AGENT_VERSION}"
+  if [[ -z "${AGENT_VERSION}" ]]; then
+    echo "${AGENT_JAR} not found, AGENT_VERSION environment variable must be set"
+    exit 1
+  else
+    echo "Downloading agent version ${AGENT_VERSION}"
+  fi
 fi
 
 echo "Building Spring PetClinic from current directory..."
@@ -21,5 +25,4 @@ curl -L -o app/elastic-apm-agent.jar \
 echo "Building Docker image"
 docker build -t eyalkoren/pet-clinic:busy-method-with-agent .
 
-rm -r agent
 rm -r app
